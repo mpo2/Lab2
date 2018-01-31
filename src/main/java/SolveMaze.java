@@ -34,7 +34,17 @@ public class SolveMaze {
          * Feel free to adjust this number if you experiment with other mazes.
          */
         for (int step = 0; step < 1000; step++) {
-            // Implement your maze solving algorithm here
+            do {
+                maze.turnRight();
+                while (wallToRight(maze) == false) {
+                    maze.turnRight();
+                }
+                while (maze.canMove() == false) {
+                    maze.turnLeft();
+                }
+                maze.move();
+            } while (maze.isFinished() == false);
+            break;
         }
 
         if (maze.isFinished()) {
@@ -43,4 +53,16 @@ public class SolveMaze {
             System.out.println("Try again!");
         }
     }
+    private static boolean wallToRight(Maze maze){
+        maze.turnRight();
+        if(maze.canMove()) {
+            maze.turnLeft();
+            return true;
+        } else {
+            maze.turnLeft();
+            return false;
+        }
+
+    }
+
 }
